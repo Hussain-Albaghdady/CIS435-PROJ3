@@ -1,0 +1,119 @@
+{
+  "test_cases": [
+    {
+      "id": "TC001",
+      "name": "Create task with valid data",
+      "type": "POST",
+      "endpoint": "/create.php",
+      "data": {
+        "title": "Test Task",
+        "description": "Test Description",
+        "priority": "High",
+        "due": "2025-12-31"
+      },
+      "expected_status": 302,
+      "expected_redirect": "/index.php",
+      "expected_result": "Task created successfully"
+    },
+    {
+      "id": "TC002",
+      "name": "Create task with missing title",
+      "type": "POST",
+      "endpoint": "/create.php",
+      "data": {
+        "title": "",
+        "description": "Test",
+        "priority": "Low",
+        "due": ""
+      },
+      "expected_status": 200,
+      "expected_content": "Title is required"
+    },
+    {
+      "id": "TC003",
+      "name": "Create task with invalid date format",
+      "type": "POST",
+      "endpoint": "/create.php",
+      "data": {
+        "title": "Test Task",
+        "description": "Test",
+        "priority": "Medium",
+        "due": "12/31/2025"
+      },
+      "expected_status": 200,
+      "expected_content": "Due date must be in YYYY-MM-DD format"
+    },
+    {
+      "id": "TC004",
+      "name": "Create task with invalid priority",
+      "type": "POST",
+      "endpoint": "/create.php",
+      "data": {
+        "title": "Test Task",
+        "description": "Test",
+        "priority": "Critical",
+        "due": ""
+      },
+      "expected_status": 200,
+      "expected_content": "Priority must be Low, Medium, or High"
+    },
+    {
+      "id": "TC005",
+      "name": "List tasks without filters",
+      "type": "GET",
+      "endpoint": "/index.php",
+      "expected_status": 200,
+      "expected_content": "TaskPad PHP"
+    },
+    {
+      "id": "TC006",
+      "name": "List tasks with search filter",
+      "type": "GET",
+      "endpoint": "/index.php?q=test",
+      "expected_status": 200,
+      "expected_content": "Showing"
+    },
+    {
+      "id": "TC007",
+      "name": "List tasks with priority filter",
+      "type": "GET",
+      "endpoint": "/index.php?priority=High",
+      "expected_status": 200,
+      "expected_content": "TaskPad PHP"
+    },
+    {
+      "id": "TC008",
+      "name": "Complete task without CSRF token",
+      "type": "POST",
+      "endpoint": "/actions.php",
+      "data": {
+        "action": "complete",
+        "id": "test_id"
+      },
+      "skip_csrf": true,
+      "expected_status": 403,
+      "expected_content": "Invalid CSRF token"
+    },
+    {
+      "id": "TC009",
+      "name": "Delete task without CSRF token",
+      "type": "POST",
+      "endpoint": "/actions.php",
+      "data": {
+        "action": "delete",
+        "id": "test_id"
+      },
+      "skip_csrf": true,
+      "expected_status": 403,
+      "expected_content": "Invalid CSRF token"
+    },
+    {
+      "id": "TC010",
+      "name": "Access actions.php with GET request",
+      "type": "GET",
+      "endpoint": "/actions.php",
+      "expected_status": 405,
+      "expected_content": "Only POST requests are allowed"
+    }
+  ]
+}
