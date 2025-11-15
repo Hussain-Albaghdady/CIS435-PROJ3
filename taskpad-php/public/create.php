@@ -16,7 +16,9 @@ require_once '../src/csrf.php';
 require_once '../src/flash.php';
 
 // Start session
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Initialize variables
 $errors = [];

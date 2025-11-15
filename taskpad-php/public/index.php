@@ -15,7 +15,9 @@ require_once '../src/csrf.php';
 require_once '../src/flash.php';
 
 // Start session
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Generate CSRF token for forms
 $csrfToken = generateCsrfToken();
@@ -65,8 +67,8 @@ $openCount = $totalTasks - $completedCount;
 <body>
     <div class="container">
         <header>
-            <h1>📋 TaskPad PHP</h1>
-            <p>A minimal task tracker built with PHP</p>
+            <h1>TaskPad PHP</h1>
+            <p>A minimal task tracker</p>
         </header>
 
         <?php echo displayFlash(); ?>
