@@ -3,21 +3,21 @@
 define('TASKS_FILE', __DIR__ . '/../data/tasks.json');
 
 /**
- * Load all tasks from the JSON file
+ * Load all tasks from the JSON file and puts in storage
  * @return array All tasks
  */
 
 function loadTasks() {
-    // Check if file exists
+    // Check if file exists will load into index
     if (!file_exists(TASKS_FILE)) {
         // If not, return empty array
         return [];
     }
     
-    // Read file contents
+  
     $json = file_get_contents(TASKS_FILE);
     
-    // Convert JSON string to PHP array
+    // Convert JSON string to array
     $tasks = json_decode($json, true);
     
     // Return tasks or empty array if something went wrong
@@ -26,21 +26,21 @@ function loadTasks() {
 
 /**
  * Save tasks to the JSON file
- * @param array $tasks The tasks to save
- * @return bool True if successful
+ * @param array
+ * @return bool l
  */
 function saveTasks($tasks) {
-    // Convert PHP array to JSON string (pretty print for readability)
+    
     $json = json_encode($tasks, JSON_PRETTY_PRINT);
     
-    // Write to file (returns number of bytes written, or false on failure)
+   
     return file_put_contents(TASKS_FILE, $json) !== false;
 }
 
 /**
  * Get a single task by ID
- * @param string $id The task ID
- * @return array|null The task or null if not found
+ * @param string 
+ * @return array|null 
  */
 function getTaskById($id) {
     $tasks = loadTasks();
@@ -57,8 +57,8 @@ function getTaskById($id) {
 
 /**
  * Add a new task
- * @param array $taskData The task data
- * @return bool True if successful
+ * @param array 
+ * @return bool 
  */
 function addTask($taskData) {
     $tasks = loadTasks();
@@ -78,9 +78,9 @@ function addTask($taskData) {
 
 /**
  * Update a task (for marking complete)
- * @param string $id Task ID
- * @param array $updates Data to update
- * @return bool True if successful
+ * @param string
+ * @param array 
+ * @return bool 
  */
 function updateTask($id, $updates) {
     $tasks = loadTasks();
@@ -99,8 +99,8 @@ function updateTask($id, $updates) {
 
 /**
  * Delete a task
- * @param string $id Task ID
- * @return bool True if successful
+ * @param string 
+ * @return bool 
  */
 function deleteTask($id) {
     $tasks = loadTasks();

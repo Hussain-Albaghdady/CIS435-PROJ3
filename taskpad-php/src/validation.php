@@ -1,15 +1,10 @@
 <?php
-/**
- * VALIDATION.PHP - Validates and sanitizes user inputs
- * 
- * WHY? Users can type anything. We need to check inputs are valid
- * and clean them up to prevent security issues (like XSS attacks)
- */
+
 
 /**
  * Validate task data
- * @param array $data Task data from form
- * @return array Errors (empty if valid)
+ * @param array 
+ * @return array 
  */
 function validateTask($data) {
     $errors = [];

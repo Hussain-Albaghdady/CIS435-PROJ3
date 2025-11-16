@@ -1,15 +1,15 @@
 <?php
 
 
-// Start session if not already started
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 /**
- * Set a flash message
- * @param string $key Message key (e.g., 'success', 'error')
- * @param string $message The message text
+ * Set a flash message like "success" or "error" and so this flash is to make sure it gives the user feedback 
+ * @param string 
+ * @param string 
  */
 function setFlash($key, $message) {
     $_SESSION['flash'][$key] = $message;
@@ -31,8 +31,8 @@ function getFlash($key) {
 
 /**
  * Check if a flash message exists
- * @param string $key Message key
- * @return bool True if exists
+ * @param string 
+ * @return bool 
  */
 function hasFlash($key) {
     return isset($_SESSION['flash'][$key]);
