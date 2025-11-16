@@ -1,7 +1,7 @@
 <?php
 
 
-// Include helpers
+// Include files that ar neededd
 require_once '../src/storage.php';
 require_once '../src/validation.php';
 require_once '../src/csrf.php';

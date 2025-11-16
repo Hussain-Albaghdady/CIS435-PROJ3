@@ -9,31 +9,31 @@
 function validateTask($data) {
     $errors = [];
     
-    // Check title exists and is not empty
+  
     if (empty($data['title']) || trim($data['title']) === '') {
         $errors['title'] = 'Title is required';
     } elseif (strlen($data['title']) > 200) {
         $errors['title'] = 'Title must be less than 200 characters';
     }
     
-    // Check description length if provided
+   
     if (!empty($data['description']) && strlen($data['description']) > 1000) {
         $errors['description'] = 'Description must be less than 1000 characters';
     }
     
-    // Check priority is valid
+    
     $validPriorities = ['Low', 'Medium', 'High'];
     if (empty($data['priority']) || !in_array($data['priority'], $validPriorities)) {
         $errors['priority'] = 'Priority must be Low, Medium, or High';
     }
     
-    // Check due date format if provided
+   
     if (!empty($data['due'])) {
-        // Regex to check YYYY-MM-DD format
+      
         if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $data['due'])) {
             $errors['due'] = 'Due date must be in YYYY-MM-DD format';
         } else {
-            // Also check if it's a valid date
+          
             $parts = explode('-', $data['due']);
             if (!checkdate($parts[1], $parts[2], $parts[0])) {
                 $errors['due'] = 'Due date is not a valid date';
@@ -45,9 +45,9 @@ function validateTask($data) {
 }
 
 /**
- * Sanitize task data (clean it up)
- * @param array $data Raw task data
- * @return array Cleaned task data
+ * 
+ * @param array
+ * @return array a
  */
 function FormatTask($data) {
     return [
@@ -59,27 +59,27 @@ function FormatTask($data) {
 }
 
 /**
- * Escape output for HTML (prevents XSS attacks)
- * @param string $text Text to escape
- * @return string Escaped text
+ * 
+ * @param string 
+ * @return string 
  */
 function e($text) {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 }
 
 /**
- * Validate and sanitize search query
- * @param string $query Search query
- * @return string Clean query
+ *
+ * @param string 
+ * @return string 
  */
 function sanitizeQuery($query) {
     return trim(htmlspecialchars($query, ENT_QUOTES, 'UTF-8'));
 }
 
 /**
- * Validate priority filter
- * @param string $priority Priority value
- * @return string|null Valid priority or null
+ * r
+ * @param string 
+ * @return string|null 
  */
 function validatePriority($priority) {
     $valid = ['Low', 'Medium', 'High'];
