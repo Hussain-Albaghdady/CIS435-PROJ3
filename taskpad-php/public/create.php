@@ -1,7 +1,7 @@
 <?php
 
 
-// Include files that ar neededd
+
 require_once '../src/storage.php';
 require_once '../src/validation.php';
 require_once '../src/csrf.php';
@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// variables
+
 $errors = [];
 $formData = [
     'title' => '',
@@ -21,12 +21,12 @@ $formData = [
     'due' => ''
 ];
 
-//  if it has a "post" then we put the data into the forms
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verify CSRF token
+   
     requireCsrfToken();
     
-    // Get form data from $_POST
+
     $formData = [
         'title' => $_POST['title'] ?? '',
         'description' => $_POST['description'] ?? '',
@@ -34,19 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'due' => $_POST['due'] ?? ''
     ];
     
-    // formats the data
+  
     $cleanData = FormatTask($formData);
     
-    // Validate the data
+  
     $errors = validateTask($cleanData);
     
-    // If no errors, save and redirect
+ 
     if (empty($errors)) {
         if (addTask($cleanData)) {
             // success message
             setFlash('success', 'Task created successfully!');
             
-            // Redirect to list 
+           
             header('Location: index.php');
             exit;
         } else {

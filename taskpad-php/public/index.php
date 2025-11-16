@@ -1,7 +1,7 @@
 <?php
 
 
-// Include our helper files
+
 require_once '../src/storage.php';
 require_once '../src/validation.php';
 require_once '../src/csrf.php';
@@ -15,14 +15,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $csrfToken = generateCsrfToken();
 
-// Load tasks
+
 $allTasks = loadTasks();
 
-// Get filter parameters pirotrites and search query
+
 $searchQuery = isset($_GET['q']) ? sanitizeQuery($_GET['q']) : '';
 $priorityFilter = isset($_GET['priority']) ? validatePriority($_GET['priority']) : null;
 
-// Filter tasks based on search and priority
+
 $tasks = $allTasks;
 
 if (!empty($searchQuery)) {
@@ -31,7 +31,7 @@ if (!empty($searchQuery)) {
         $title = strtolower($task['title']);
         $desc = strtolower($task['description'] ?? '');
         
-        // Check if query appears in title or description
+       
         return strpos($title, $query) !== false || strpos($desc, $query) !== false;
     });
 }
@@ -42,7 +42,7 @@ if ($priorityFilter) {
     });
 }
 
-// Count tasks
+
 $totalTasks = count($allTasks);
 $displayedTasks = count($tasks);
 $completedCount = count(array_filter($allTasks, function($t) { return $t['completed']; }));

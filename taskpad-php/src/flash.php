@@ -16,9 +16,9 @@ function setFlash($key, $message) {
 }
 
 /**
- * Get a flash message (and remove it)
- * @param string $key Message key
- * @return string|null The message or null
+ * 
+ * @param string 
+ * @return string|null T
  */
 function getFlash($key) {
     if (isset($_SESSION['flash'][$key])) {
@@ -30,7 +30,7 @@ function getFlash($key) {
 }
 
 /**
- * Check if a flash message exists
+ * 
  * @param string 
  * @return bool 
  */
@@ -39,8 +39,8 @@ function hasFlash($key) {
 }
 
 /**
- * Display all flash messages as HTML
- * @return string HTML for flash messages
+ * 
+ * @return string 
  */
 function displayFlash() {
     $html = '';
