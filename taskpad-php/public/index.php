@@ -1,12 +1,5 @@
 <?php
-/**
- * INDEX.PHP - Main page that lists and filters tasks
- * 
- * This page:
- * 1. Shows all tasks
- * 2. Allows filtering by search text and priority
- * 3. Shows Complete/Delete buttons for each task
- */
+
 
 // Include our helper files
 require_once '../src/storage.php';
@@ -14,18 +7,18 @@ require_once '../src/validation.php';
 require_once '../src/csrf.php';
 require_once '../src/flash.php';
 
-// Start session
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Generate CSRF token for forms
+
 $csrfToken = generateCsrfToken();
 
-// Load all tasks
+// Load tasks
 $allTasks = loadTasks();
 
-// Get filter parameters from URL (?q=search&priority=High)
+// Get filter parameters pirotrites and search query
 $searchQuery = isset($_GET['q']) ? sanitizeQuery($_GET['q']) : '';
 $priorityFilter = isset($_GET['priority']) ? validatePriority($_GET['priority']) : null;
 
@@ -61,20 +54,20 @@ $openCount = $totalTasks - $completedCount;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskPad PHP - Task List</title>
+    <title>TaskPad</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>TaskPad PHP</h1>
-            <p>A minimal task tracker</p>
+            <h1>TaskPad</h1>
+            
         </header>
 
         <?php echo displayFlash(); ?>
 
         <div class="actions">
-            <a href="create.php" class="btn btn-primary">+ Add New Task</a>
+            <a href="create.php" class="btn btn-primary">New Task</a>
         </div>
 
         <div class="stats">
@@ -99,7 +92,7 @@ $openCount = $totalTasks - $completedCount;
                     <option value="High" <?php echo $priorityFilter === 'High' ? 'selected' : ''; ?>>High</option>
                 </select>
                 
-                <button type="submit" class="btn">Filter</button>
+                <button type="submit" class="btn">Search</button>
                 <a href="index.php" class="btn btn-secondary">Clear</a>
             </form>
         </div>
@@ -108,9 +101,8 @@ $openCount = $totalTasks - $completedCount;
             <?php if (empty($tasks)): ?>
                 <div class="empty-state">
                     <?php if (empty($allTasks)): ?>
-                        <p>No tasks yet! Click "Add New Task" to get started.</p>
-                    <?php else: ?>
-                        <p>No tasks match your filters.</p>
+                        <p>No tasks yet! Click "New Task".</p>
+                
                     <?php endif; ?>
                 </div>
             <?php else: ?>
@@ -129,7 +121,7 @@ $openCount = $totalTasks - $completedCount;
                         
                         <div class="task-meta">
                             <?php if (!empty($task['due'])): ?>
-                                <span class="due-date">📅 Due: <?php echo e($task['due']); ?></span>
+                                <span class="due-date"> Due: <?php echo e($task['due']); ?></span>
                             <?php endif; ?>
                             
                             <span class="status-badge">

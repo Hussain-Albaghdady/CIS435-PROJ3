@@ -1,11 +1,5 @@
 <?php
-/**
- * FLASH.PHP - Session Flash Messages
- * 
- * WHY? After submitting a form, we redirect the user (PRG pattern).
- * But we want to show them a success message. Flash messages let us
- * store a message that shows once and then disappears.
- */
+
 
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {

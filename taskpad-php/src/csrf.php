@@ -1,22 +1,16 @@
 <?php
-/**
- * CSRF.PHP - Cross-Site Request Forgery Protection
- * 
- * WHY? Prevents attackers from tricking users into submitting forms
- * Example: A malicious site could try to delete your tasks
- * 
- * HOW? We generate a secret token and check it on form submission
- */
 
-// Start session if not already started
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 /**
- * Generate a CSRF token and store in session
+ * Generate a CSRF token and store in session to protec and make site data more unique
  * @return string The token
  */
+
+// generates it 
 function generateCsrfToken() {
     // Generate random token if doesn't exist
     if (empty($_SESSION['csrf_token'])) {

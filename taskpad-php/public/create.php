@@ -1,13 +1,5 @@
 <?php
-/**
- * CREATE.PHP - Add new task form and handler
- * 
- * This page:
- * 1. Shows a form to add tasks (GET request)
- * 2. Processes form submission (POST request)
- * 3. Validates inputs and shows errors
- * 4. Saves task and redirects on success (PRG pattern)
- */
+
 
 // Include helpers
 require_once '../src/storage.php';
@@ -15,12 +7,12 @@ require_once '../src/validation.php';
 require_once '../src/csrf.php';
 require_once '../src/flash.php';
 
-// Start session
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Initialize variables
+// variables
 $errors = [];
 $formData = [
     'title' => '',
@@ -29,7 +21,7 @@ $formData = [
     'due' => ''
 ];
 
-// Check if this is a POST request (form submission)
+//  if it has a "post" then we put the data into the forms
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verify CSRF token
     requireCsrfToken();
@@ -42,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'due' => $_POST['due'] ?? ''
     ];
     
-    // Sanitize the data
-    $cleanData = sanitizeTask($formData);
+    // formats the data
+    $cleanData = FormatTask($formData);
     
     // Validate the data
     $errors = validateTask($cleanData);
@@ -51,17 +43,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // If no errors, save and redirect
     if (empty($errors)) {
         if (addTask($cleanData)) {
-            // Set success message
+            // success message
             setFlash('success', 'Task created successfully!');
             
-            // Redirect to list page (PRG pattern)
+            // Redirect to list 
             header('Location: index.php');
             exit;
         } else {
             $errors['general'] = 'Failed to save task. Please try again.';
         }
     }
-    // If there are errors, form will be re-displayed with errors
+    
 }
 
 // Generate CSRF token
@@ -72,14 +64,14 @@ $csrfToken = generateCsrfToken();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Task - TaskPad PHP</title>
+    <title>Add New Task</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Add New Task</h1>
-            <p><a href="index.php">← Back to list</a></p>
+            <h1>New Task</h1>
+            <p><a href="index.php">Back to list</a></p>
         </header>
 
         <?php if (!empty($errors['general'])): ?>
@@ -94,7 +86,7 @@ $csrfToken = generateCsrfToken();
             
             <!-- Title Field -->
             <div class="form-group">
-                <label for="title">Title <span class="required">*</span></label>
+                <label for="title">Title <span class="required">**</span></label>
                 <input 
                     type="text" 
                     id="title" 
@@ -152,7 +144,7 @@ $csrfToken = generateCsrfToken();
                     name="due" 
                     value="<?php echo e($formData['due']); ?>"
                 >
-                <small>Format: YYYY-MM-DD</small>
+                
                 <?php if (!empty($errors['due'])): ?>
                     <span class="error-message"><?php echo e($errors['due']); ?></span>
                 <?php endif; ?>

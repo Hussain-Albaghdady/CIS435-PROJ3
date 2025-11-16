@@ -54,7 +54,7 @@ function validateTask($data) {
  * @param array $data Raw task data
  * @return array Cleaned task data
  */
-function sanitizeTask($data) {
+function FormatTask($data) {
     return [
         'title' => trim(htmlspecialchars($data['title'] ?? '', ENT_QUOTES, 'UTF-8')),
         'description' => trim(htmlspecialchars($data['description'] ?? '', ENT_QUOTES, 'UTF-8')),
