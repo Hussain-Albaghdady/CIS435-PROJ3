@@ -1,5 +1,7 @@
-To run project : php -S localhost:8080 -t public
+# To Run Project: 
+- php -S localhost:8080 -t public
 
-Screenshots and diagrams are in "docs" 
+# Screenshots and diagrams are in "docs" 
 
-to run tests: php tests/run_tests.php
+# To Run Tests:
+- php tests/run_tests.php
