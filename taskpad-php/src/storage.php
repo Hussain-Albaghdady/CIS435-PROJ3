@@ -1,18 +1,12 @@
 <?php
-/**
- * STORAGE.PHP - Handles reading/writing tasks to JSON file
- * 
- * WHY? We need to save tasks somewhere. Instead of a database,
- * we use a simple JSON file (tasks.json)
- */
 
-// Path to our JSON file
 define('TASKS_FILE', __DIR__ . '/../data/tasks.json');
 
 /**
  * Load all tasks from the JSON file
  * @return array All tasks
  */
+
 function loadTasks() {
     // Check if file exists
     if (!file_exists(TASKS_FILE)) {

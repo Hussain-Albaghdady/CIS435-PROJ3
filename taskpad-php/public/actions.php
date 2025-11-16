@@ -1,13 +1,4 @@
 <?php
-/**
- * ACTIONS.PHP - Handles Complete and Delete actions
- * 
- * This page:
- * 1. Only accepts POST requests (not GET)
- * 2. Verifies CSRF token for security
- * 3. Performs the requested action
- * 4. Redirects back to list with a message
- */
 
 // Include helpers
 require_once '../src/storage.php';
@@ -15,12 +6,12 @@ require_once '../src/validation.php';
 require_once '../src/csrf.php';
 require_once '../src/flash.php';
 
-// Start session
+// Start session but this is needed so we dont have mor then once instance of session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Only allow POST requests
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405); // Method Not Allowed
     die('Only POST requests are allowed');
@@ -33,14 +24,14 @@ requireCsrfToken();
 $action = $_POST['action'] ?? '';
 $taskId = $_POST['id'] ?? '';
 
-// Validate we have required data
+// see if we hae the data or not 
 if (empty($action) || empty($taskId)) {
-    setFlash('error', 'Invalid request');
+    setFlash('errorr', 'Invalid request');
     header('Location: index.php');
     exit;
 }
 
-// Perform the requested action
+
 switch ($action) {
     case 'complete':
         // Mark task as complete
